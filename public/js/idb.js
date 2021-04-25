@@ -44,12 +44,14 @@ function uploadExpense() {
             })
                 .then(response => response.json())
                 .then(serverResponse => {
+                    console.log(serverResponse);
                     if (serverResponse.message) {
                         throw new Error(serverResponse);
                     }
                     const transaction = db.transaction(['new_expense'], 'readwrite');
-                    const expenseObjectStore = transaction.objectStore('new-expense');
-                    expenseObjectStore.clear();
+                    console.log(transaction);
+                    const expensesObjectStore = transaction.objectStore('new-expense');
+                    expensesObjectStore.clear();
 
                     alert('All saved expenses have been submitted!');
                 })
